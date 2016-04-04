@@ -1,26 +1,85 @@
-// Ionic Starter App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+var app = angular.module('auditionworld', ['ionic']);
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs).
-    // The reason we default this to hidden is that native apps don't usually show an accessory bar, at
-    // least on iOS. It's a dead giveaway that an app is using a Web View. However, it's sometimes
-    // useful especially with forms, though we would prefer giving the user a little more room
-    // to interact with the app.
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if (window.StatusBar) {
-      // Set the statusbar to use the default style, tweak this to
-      // remove the status bar on iOS or change it to use white instead of dark colors.
-      StatusBar.styleDefault();
-    }
-  });
+app.run(function ($ionicPlatform, $location) {
+    $ionicPlatform.ready(function () {
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
+        }
+        if (window.StatusBar) {
+            // Set the statusbar to use the default style, tweak this to
+            // remove the status bar on iOS or change it to use white instead of dark colors.
+            StatusBar.styleDefault();
+        }
+        
+    
+    });
+    
+});
+
+
+
+app.config(function ($stateProvider, $urlRouterProvider) {
+
+    $stateProvider
+            .state('app', {
+                url: '/app',
+                templateUrl: 'templates/sidemenu-template.html',
+                abstract: true,
+            })
+            .state('app.home', {
+                url: '/home',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'pages/auditions.html',
+                    }
+                }
+            })
+            .state('app.signin', {
+                url: '/signin',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'pages/signin.html',
+                    }
+                }
+            })
+            .state('app.signup', {
+                url: '/signup',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'pages/signup.html',
+                    }
+                }
+            })
+            .state('app.help', {
+                url: '/help',
+                cache: false,
+                views: {
+                    menuContent: {
+                        templateUrl: 'pages/help.html',
+                        controller: 'projectCtrl'
+                    }
+                }
+            })
+            .state('app.task', {
+                url: '/task/{projectId}',
+                views: {
+                    menuContent: {
+                        templateUrl: 'task.html',
+                        controller: 'taskCtrl',
+                        resolve: {
+                            projectId: function ($stateParams, Projects) {
+                                return $stateParams.projectId;
+                            }
+                        }
+                    }
+                }
+            });
+
+    $urlRouterProvider.otherwise('/app/home');
+
 });

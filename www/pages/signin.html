@@ -1,0 +1,37 @@
+<ion-view title="SIGN-IN">
+    
+    <ion-content>
+
+        <div class="row hit">
+            <div class="col col-80 col-offset-10">
+
+                <br>
+                <br>
+                
+                <h1>AuditionWorld</h1>
+                <h4>The ultimate tool for talent hunters</h4>
+                <br>
+                
+                <form novalidate>
+                    <div class="list">
+                        <label class="item item-input">
+                            <input type="text" placeholder="Username" ng-model="signin.username" required>
+                        </label>
+                    
+                        <label class="item item-input">
+                            <input type="password" placeholder="password" ng-model="signin.password" required>
+                        </label>
+                    </div>
+
+                    <button class="button button-block button-calm" ng-click="">SIGN IN</button>
+
+                </form>
+                
+                <p>New registrsation, sign-up here</p>
+                <button class="button button-outline button-balanced" ui-sref="app.signup">SIGN UP</button>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>
