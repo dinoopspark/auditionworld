@@ -3,8 +3,7 @@
 
         <ion-nav-bar class="bar-stable">
 
-            <ion-nav-back-button>
-            </ion-nav-back-button>
+            <ion-nav-back-button></ion-nav-back-button>
             
             <ion-nav-buttons side="primary">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="primary"></button>
@@ -20,34 +19,30 @@
         <ion-header-bar class="bar-stable">
 
         </ion-header-bar>
-        <ion-content class="stable-bg">
+        <ion-content class="stable-bg" ng-controller="sidemenuCtrl">
             <ion-list>
 
                 <ion-item menu-close class="item-icon-left item-light" ui-sref="app.home">
                     <i class="icon ion-flash"></i> Auditions
                 </ion-item>
-                <ion-item menu-close class="item-icon-left item-light" ui-sref="app.home">
+                <ion-item menu-close class="item-icon-left item-light" ui-sref="app.profile">
                     <i class="icon ion-ios-compose-outline"></i> Profile
                 </ion-item>
-                <ion-item menu-close class="item-icon-left item-light" ui-sref="app.home">
-                    <i class="icon ion-ios-undo-outline"></i> Logout
-                </ion-item>
-                <ion-item menu-close class="item-icon-left item-light" ui-sref="app.home">
-                    <i class="icon ion-ios-information-outline"></i> Help
-                </ion-item>
-
-            </ion-list>
-            <h4> Blind pages </h4>
-            <ion-list>
-
-                <ion-item menu-close class="item-icon-left item-light" ui-sref="app.signin">
-                    <i class="icon ion-flash"></i> SIGN IN
-                </ion-item>
-                <ion-item menu-close class="item-icon-left item-light" ui-sref="app.signup">
-                    <i class="icon ion-flash"></i> SIGN UP
+                <ion-item menu-close class="item-icon-left item-light" ng-click="logout()">
+                    <i class="icon ion-ios-undo-outline"></i> Logout 
                 </ion-item>
                 
+
             </ion-list>
+<!--            <h4> Blind pages </h4>
+            <ion-list>
+                <ion-item menu-close class="item-icon-left item-light" ui-sref="single.signin">
+                    <i class="icon ion-flash"></i> SIGN IN
+                </ion-item>
+                <ion-item menu-close class="item-icon-left item-light" ui-sref="single.signin">
+                    <i class="icon ion-flash"></i> SIGN UP
+                </ion-item>
+            </ion-list>-->
         </ion-content>
     </ion-side-menu>
 
