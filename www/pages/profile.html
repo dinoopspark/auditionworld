@@ -7,28 +7,28 @@
 
             <div class="item item-avatar">
                 <img src="img/avatar.png">
-                <h2>John Doe</h2>
+                <h2>{{ profile.name }}</h2>
                 <p>Actor / Director</p>
             </div>
 
             <div class="item item-body">
-                <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus.</p>
+                <p>{{ profile.about_me }}</p>
             </div>
 
             <a class="item item-icon-left assertive" href="#">
-                <i class="icon ion-videocamera"></i>
-                My Videos
+                <i class="icon ion-pin"></i>
+                My posts
             </a>
             <a class="item item-icon-left assertive" href="#">
-                <i class="icon ion-images"></i>
-                My Photos
+                <i class="icon ion-edit"></i>
+                Edit my profile
             </a>
 
         </div>
 
         <ul class="list ">
-            <li class="item">
-                Username <span class="profile-value-right">Grammy</span>
+            <li class="item" ng-repeat="profile_detail in profile_details">
+                {{ profile_detail.label }} <span class="profile-value-right">{{ profile_detail.value }}</span>
             </li>
             <li class="item">
                 Phone <span class="profile-value-right">+91 568 956</span>

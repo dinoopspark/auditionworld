@@ -48,6 +48,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: 'pages/signup.html',
+                        controller: 'signupCtrl',
                     }
                 }
             })
@@ -66,6 +67,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: 'pages/profile.html',
+                        controller: 'profileCtrl',
                     }
                 }
             });
