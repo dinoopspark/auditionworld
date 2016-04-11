@@ -31,17 +31,23 @@ app.controller("signupCtrl", function ($scope, LoginService) {
     }
 
 });
-app.controller("profileCtrl", function ($scope) {
+
+app.controller("profileCtrl", function ($scope, FormService) {
 
     $scope.profile = appData.dummy.profile;
-    
-    var profile_details_required = appData.global.profile_details_required;
+    var profile_fields = appData.global.profile_fields;
 
-    $scope.profile_details = [];
-    angular.forEach(profile_details_required , function (value, key) {
-        var new_data = {label: value.label, value: $scope.profile[key] };
-        $scope.profile_details.push(new_data);
-    });
 
-    
+    $scope.profile_refine = FormService.refine_field_attributes(profile_fields, $scope.profile);
+
+    $scope.profile_details = FormService.filter_fields($scope.profile_refine, appData.global.profile_details);
+    $scope.physical_details = FormService.filter_fields($scope.profile_refine, appData.global.physical_details);
+    $scope.experience_achievements = FormService.filter_fields($scope.profile_refine, appData.global.experience_achievements);
+
+
+
+
+
 });
+
+

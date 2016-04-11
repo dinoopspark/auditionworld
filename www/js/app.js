@@ -70,6 +70,26 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                         controller: 'profileCtrl',
                     }
                 }
+            })
+            .state('app.profile-edit', {
+                url: '/profile-edit',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'pages/profile-edit.html',
+                        controller: 'profileCtrl',
+                    }
+                }
+            })
+            .state('app.sample-form', {
+                url: '/sample-form',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'pages/sample-form.html',
+                        controller: 'sampleCtrl',
+                    }
+                }
             });
 
     $urlRouterProvider.otherwise('/app/home');

@@ -1,0 +1,25 @@
+<div class="modal">
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+        <h1 class="title">{{checkboxlist.label}}</h1>
+
+        <button class="button button-clear button-positive" ng-click="hideItems()"> OK </button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+        <ion-list>
+            <label>{{sec[checkboxlist.name]}}</label>
+            <ion-checkbox
+                ng-repeat="option in checkboxlist.options"
+                ng-click="storeItems(option.value)"
+                ng-checked="isChecked(option.value)"
+                >{{ option.label}}</ion-checkbox>
+            
+        </ion-list>
+
+    </ion-content>
+
+</div>

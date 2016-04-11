@@ -1,21 +1,58 @@
 var global = {
-    main: ['name', 'profile_pic', 'about_me'],
-    profile_details_required_tie : ['phone', 'email'],
-    profile_details_required: {
-        phone: {label: "Phone"},
-        email: {label: "Email"},
-        dob: {label: "Date of birth"},
-        gender: {label: "Gender"},
-        height: {label: "Height"},
-        weight: {label: "Weight"},
-        lankuage_known: {label: "Lankuage known"},
-        eye_color: {label: "Eye color"},
-        hair_style: {label: "Hair style"},
-        complexion: {label: "Complexion"},
-        school: {label: "School"},
-        college: {label: "College"},
-        work: {label: "Work"}
-    }
+    // Profile page information
+    profile_details: [
+        'language_known',
+    ],
+    physical_details: [
+        'phone',
+        'email',
+        'dob',
+        'gender',
+        'height',
+        'weight',
+        'language_known',
+        'eye_color',
+        'hair_style',
+        'complexion',
+    ],
+    experience_achievements: [
+        'school',
+        'college',
+        'work',
+    ],
+    profile_edit: [
+        'name',
+        'phone',
+        'email',
+        'dob',
+        'gender',
+        'height',
+        'weight',
+        'language_known',
+        'eye_color',
+        'hair_style',
+        'complexion',
+    ],
+    // profile information
+    
+    profile_fields: [
+        {name: "name", label: "Name"},
+        {name: "profile_pic", label: "Profile picture"},
+        {name: "phone", label: "Phone"},
+        {name: "email", label: "Email", type: "email"},
+        {name: "dob", label: "Date of birth"},
+        {name: "gender", label: "Gender"},
+        {name: "height", label: "Height"},
+        {name: "weight", label: "Weight"},
+        {name: "language_known", label: "Language known"},
+        {name: "eye_color", label: "Eye color"},
+        {name: "hair_style", label: "Hair style"},
+        {name: "complexion", label: "Complexion"},
+        {name: "about_me", label: "About me"},
+        {name: "school", label: "School"},
+        {name: "college", label: "College"},
+        {name: "work", label: "Work"}
+    ],
 }
 
 var dummy = {
@@ -30,13 +67,13 @@ var dummy = {
         id: '20',
         name: 'John Doe',
         profile_pic: 'http://example.com/images/user.png',
+        phone: '+91 458 9658 96',
+        email: 'john@mail.com',
         dob: '2005-05-25',
         gender: 'Male',
-        weight: '50 kg',
         height: '156 cm',
-        email: 'john@mail.com',
-        phone: '+91 458 9658 96',
-        lankuage_known: 'English',
+        weight: '50 kg',
+        language_known: 'English',
         eye_color: 'Black',
         hair_style: 'Curly',
         complexion: 'Brown',

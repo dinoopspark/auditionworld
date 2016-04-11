@@ -19,7 +19,7 @@
                 <i class="icon ion-pin"></i>
                 My posts
             </a>
-            <a class="item item-icon-left assertive" href="#">
+            <a class="item item-icon-left assertive" ui-sref="app.profile-edit">
                 <i class="icon ion-edit"></i>
                 Edit my profile
             </a>
@@ -27,15 +27,26 @@
         </div>
 
         <ul class="list ">
-            <li class="item" ng-repeat="profile_detail in profile_details">
-                {{ profile_detail.label }} <span class="profile-value-right">{{ profile_detail.value }}</span>
+            
+            <li class="item item-divider">Profile Details</li>
+            <li class="item" ng-repeat="pd in profile_details">
+                {{ pd.label }} <span class="profile-value-right">{{ pd.value }}</span>
             </li>
-            <li class="item">
-                Phone <span class="profile-value-right">+91 568 956</span>
+            
+            <li class="item item-divider">Physical Details</li>
+            <li class="item" ng-repeat="pd in physical_details">
+                {{ pd.label }} <span class="profile-value-right">{{ pd.value }}</span>
             </li>
-            <li class="item">
-                Email <span class="profile-value-right">admin@mail.com</span>
-            </li>
+            
+            <li class="item item-divider">Experience & Achievements</li>
+            <div ng-repeat="pd in experience_achievements">
+                
+                <div class="item item-body dark">
+                    <h3>{{ pd.label }}</h3>
+                    <p>{{ pd.value }}</p>
+                </div>
+            </div>
+            
         </ul>
 
     </ion-content>

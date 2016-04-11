@@ -148,3 +148,33 @@ app.service("WebService", function ($http, $q) {
 
 });
 
+app.service("FormService", function () {
+
+    // refine field attributes
+    this.refine_field_attributes = function (fields, valueObj) {
+        var refine = {};
+        angular.forEach(fields, function (value, key) {
+
+            var type = (value.type) ? value.type : "text";
+            var field_value = (valueObj[value.name]) ? valueObj[value.name] : "";
+
+
+            var new_data = {name: value.name, label: value.label, value: field_value, type: type};
+
+            refine[value.name] = new_data;
+        });
+        return refine;
+    }
+
+    // set required fields in refine
+    this.filter_fields = function (refined_fields, required) {
+        var structured = [];
+        angular.forEach(required, function (value, key) {
+            var new_data = refined_fields[value];
+            structured.push(new_data);
+        });
+        return structured;
+    }
+
+
+});
