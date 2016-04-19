@@ -1,105 +1,98 @@
 var global = {
-    // Profile page information
-    profile_details: [
-        'language_known',
-    ],
-    physical_details: [
-        'phone',
-        'email',
-        'dob',
-        'gender',
-        'height',
-        'weight',
-        'language_known',
-        'eye_color',
-        'hair_style',
-        'complexion',
-    ],
-    experience_achievements: [
-        'school',
-        'college',
-        'work',
-    ],
-    profile_edit: [
-        'name',
-        'phone',
-        'email',
-        'dob',
-        'gender',
-        'height',
-        'weight',
-        'language_known',
-        'eye_color',
-        'hair_style',
-        'complexion',
-    ],
     // profile information
-    
-    profile_fields: [
+    user_profile: [
         {name: "name", label: "Name"},
         {name: "profile_pic", label: "Profile picture"},
+        {name: "about_me", label: "About me", type: "textarea"},
+        {name: "profile_details", type: "divider", label: "Profile Details"},
         {name: "phone", label: "Phone"},
         {name: "email", label: "Email", type: "email"},
         {name: "dob", label: "Date of birth"},
-        {name: "gender", label: "Gender"},
+        {
+            name: "gender", label: "Gender", type: "select",
+            options: [
+                {label: "Male", value: "male"},
+                {label: "Female", value: "female"},
+            ],
+            option_default: "male"
+        },
+        {name: "language_known", label: "Language known"},
+        {name: "physical_details", type: "divider", label: "Physical Details"},
+        {name: "complexion", label: "Complexion"},
+        {name: "eye_color", label: "Eye color"},
         {name: "height", label: "Height"},
         {name: "weight", label: "Weight"},
-        {name: "language_known", label: "Language known"},
-        {name: "eye_color", label: "Eye color"},
-        {name: "hair_style", label: "Hair style"},
-        {name: "complexion", label: "Complexion"},
-        {name: "about_me", label: "About me"},
-        {name: "school", label: "School"},
-        {name: "college", label: "College"},
-        {name: "work", label: "Work"}
+        {name: "hair", label: "Hair style"},
+        {name: "experience_achievement", type: "divider", label: "Experience & Achievement"},
+        {name: "school_level", label: "School", type: "textarea"},
+        {name: "college_level", label: "College", type: "textarea"},
+        {name: "work_level", label: "Work", type: "textarea"},
     ],
-}
-
-var dummy = {
-    signup: {
-        name: "John",
-        phone: "+91 256 6363363",
-        email: "john@mail.com",
-        password: "sample123",
-        confirm_password: "sample123",
-    },
-    profile: {
-        id: '20',
-        name: 'John Doe',
-        profile_pic: 'http://example.com/images/user.png',
-        phone: '+91 458 9658 96',
-        email: 'john@mail.com',
-        dob: '2005-05-25',
-        gender: 'Male',
-        height: '156 cm',
-        weight: '50 kg',
-        language_known: 'English',
-        eye_color: 'Black',
-        hair_style: 'Curly',
-        complexion: 'Brown',
-        about_me: 'Done sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus. Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus.',
-        school: 'Nill',
-        college: 'Nill',
-        work: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        status: 'valid',
-    },
-}
-
-
-var deactive_appData = {
-    global: global,
-    dummy: dummy,
-    baseUrl: 'http://auditionworldtv.com',
-    ws_login_url: 'authenticate',
-    ws_signup_url: 'signup',
+    profile_view_basic: [
+        'name',
+        'about_me',
+        'profile_pic',
+        'phone',
+    ],
+    profile_view: [
+        'profile_details',
+        'phone',
+        'email',
+        'dob',
+        'gender',
+        'language_known',
+        'physical_details',
+        'complexion',
+        'eye_color',
+        'height_feet',
+        'weight',
+        'hair',
+        'experience_achievement',
+        'school_level',
+        'college_level',
+        'work_level',
+    ],
+    profile_edit: [
+        'name',
+        'about_me',
+        'profile_details',
+        'phone',
+        'dob',
+        'gender',
+        'language_known',
+        'physical_details',
+        'complexion',
+        'eye_color',
+        'height',
+        'weight',
+        'hair',
+        'experience_achievement',
+        'school_level',
+        'college_level',
+        'work_level',
+    ],
 }
 
 var appData = {
     global: global,
-    dummy: dummy,
-    baseUrl: 'http://localhost/auditionworld',
-    ws_login_url: 'www/server/authenticate.php',
-    ws_signup_url: 'www/server/signup.php',
+    sample_profile_pic: 'img/avatar.png',
+    baseUrl: 'http://auditionworldtv.com',
+    url_login: 'app/authenticate',
+    url_signup: 'app/register',
+    url_profile: 'app/myprofile',
+    
+}
+
+var deactive_appData = {
+    global: global,
+    sample_profile_pic: 'img/avatar.png',
+    baseUrl: 'http://localhost/auditionworld/www/server',
+    url_login: 'authenticate.php',
+    url_signup: 'signup.php',
+    url_profile: 'profile.php',
+    
+    url_profile_update: 'profile-edit.php',
+    url_audition: 'auditions.php',
 }
 
 

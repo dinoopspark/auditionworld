@@ -2,51 +2,19 @@
 
     <ion-content>
 
-        <ul class="list ">
-            <form name="sample" novalidate>
-                
-                <li class="item item-divider">Info</li>
-                <li class="list" >
-                    <label  class="item item-input">
-                        <span class="input-label">{{ profile_refine.name.label}}</span>
-                        <input type="text" ng-model="profile_refine.name.value">
-                    </label>
-                    <label class="item item-input item-stacked-label">
-                        <span class="input-label">{{ profile_refine.about_me.label}}</span>
-                        <textarea ng-model="profile_refine.about_me.value"></textarea>
-                    </label>
-                </li>
+        <div class="list ">
+            
+            <form novalidate >
 
-                <li class="item item-divider">Profile Details</li>
-                <li class="list">
-                    <label ng-repeat="pd in profile_details" class="item item-input">
-                        <span class="input-label">{{ pd.label}}</span>
-                        <input type="{{ pd.type}}" ng-model="pd.value">
-                    </label>
-                </li>
-
-                <li class="item item-divider">Physical Details</li>
-                <li class="list" >
-                    <label ng-repeat="pd in physical_details" class="item item-input">
-                        <span class="input-label">{{ pd.label}}</span>
-                        <input type="{{ pd.type}}" ng-model="pd.value">
-                    </label>
-                </li>
-                
-                <li class="item item-divider">Experience & Achievements</li>
-                <li class="list" >
-                    <label ng-repeat="pd in experience_achievements" class="item item-input item-stacked-label">
-                        <span class="input-label">{{ pd.label }}</span>
-                        <textarea ng-model="pd.value"></textarea>
-                    </label>
-                </li>
+                <form-refine items="fields" dec="field_values"></form-refine>
 
                 <div class="col-80 col-offset-10">
-                    <button type="submit" class="button button-block text-center button-calm" ng-click="">UPDATE</button>
+                    <button class="button button-block text-center button-calm" ng-click="update(field_values)">UPDATE</button>
                 </div>
 
             </form>
-        </ul>
+            
+        </div>
 
 
     </ion-content>

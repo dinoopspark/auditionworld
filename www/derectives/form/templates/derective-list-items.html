@@ -1,0 +1,21 @@
+<div class="list">
+    <div  ng-repeat="item in items">
+
+        <span ng-if="item.type == 'divider'">
+            <label class="item item-divider">{{ item.label}}</label>
+        </span>
+
+        <span ng-if="isTextLike(item.type)">
+            <label class="item">
+                {{ item.label}} <span class="profile-value-right">{{ item.value}}</span>
+            </label>
+        </span>
+
+        <span ng-if="item.type == 'textarea'">
+            <label class="item item-body dark">
+                <h3>{{ item.label}}</h3>
+                <p>{{ item.value}}</p>
+            </label>
+        </span>
+    </div>
+</div>

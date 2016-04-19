@@ -1,17 +1,11 @@
 app.controller("sampleCtrl", function ($scope, FormGenerator) {
 
     var sample_fields = [
-        {type: "divider", label: "Information"},
+        {name: "information", type: "divider", label: "Information"},
         {name: "name", label: "Name"},
         {name: "email", label: "Email", type: "email"},
         {name: "about", label: "About Me", type: "textarea"},
-        {name: "hobbies", label: "Hobbies", type: "checkbox",
-            options: [
-                {label: "Reading", value: "reading"},
-                {label: "Writing", value: "writing"},
-                {label: "Swimming", value: "swimming"},
-            ],
-        },
+        {type: "divider", label: "Basic"},
         {
             name: "gender", label: "Gender", type: "radio",
             options: [
@@ -20,26 +14,31 @@ app.controller("sampleCtrl", function ($scope, FormGenerator) {
             ],
             option_default: "male"
         },
+        {name: "hobbies", label: "Hobbies", type: "checkbox",
+            options: [
+                {label: "Reading", value: "reading"},
+                {label: "Writing", value: "writing"},
+                {label: "Swimming", value: "swimming"},
+            ],
+            option_default: ["reading", "swimming"],
+        },
     ];
 
 
     $scope.sample_field_value = {
         name: "Sam",
-        age: "28",
         about: "lorem ipsum",
-        hobbies: ["swimming", "writing"],
-        gender: "female",
+        gender: "male",
     };
 
-    var sample_field_value = {
-        name: "John",
-        age: "28",
-    };
+    var required_fields = ['information', 'hobbies'];
+
+    $scope.sample_refine = FormGenerator.refine_field_attributes(sample_fields, $scope.sample_field_value);
+
+    $scope.sample_refine = FormGenerator.filter_fields($scope.sample_refine, required_fields);
+    $scope.sample_refined_value = $scope.sample_refine.form_values;
 
 
-
-
-    $scope.sample_refine = FormGenerator.refine_field_attributes(sample_fields, sample_field_value);
 
     $scope.update = function (element_id) {
         var data = angular.element('#' + element_id).serializeObject();
@@ -48,7 +47,6 @@ app.controller("sampleCtrl", function ($scope, FormGenerator) {
 
 
     //console.log($scope.sample_refine);
-
 
     $scope.isTextLike = function (type) {
         return FormGenerator.isTextLike(type)
@@ -70,66 +68,95 @@ app.service("FormGenerator", function () {
 
         var refine = {};
 
+        var vs = {};
+
         angular.forEach(fields, function (value, key) {
 
             var type = (value.type) ? value.type : "text";
             var field_value = (valueObj[value.name]) ? valueObj[value.name] : "";
+            var field_name = (value.name) ? value.name : "randname" + Math.floor((Math.random() * 100000) + 1);
+
 
             var new_data = {
-                name: value.name,
+                name: field_name,
                 label: value.label,
                 value: field_value,
                 type: type
             };
 
             if (type == 'select') {
+
                 new_data.options = value.options;
+
+                if (typeof valueObj[value.name] == 'undefined') {
+                    new_data.value = (value.option_default) ? value.option_default : "";
+                } else {
+                    new_data.value = (valueObj[value.name] == "") ? "" : valueObj[value.name];
+                }
 
                 if (!value.option_default) {
                     new_data.options.unshift({label: " - ", value: ""});
                 }
 
-                if (value.option_default && field_value == "") {
-
-                    new_data.value = value.option_default;
-                }
             }
 
             if (type == 'radio') {
                 new_data.options = value.options;
 
-                if (value.option_default && field_value == "") {
-                    new_data.value = value.option_default;
+                if (typeof valueObj[value.name] == 'undefined') {
+                    new_data.value = (value.option_default) ? value.option_default : "";
+                } else {
+                    new_data.value = (valueObj[value.name] == "") ? "" : valueObj[value.name];
                 }
+
             }
 
             if (type == 'checkbox') {
                 new_data.options = value.options;
 
-                if (value.option_default && field_value == "") {
-                    new_data.value = value.option_default;
+                if (typeof valueObj[value.name] == 'undefined') {
+                    new_data.value = (value.option_default) ? value.option_default : [];
+                } else {
+                    new_data.value = (valueObj[value.name] == []) ? [] : valueObj[value.name];
                 }
             }
 
-            refine[value.name] = new_data;
+
+            // seperate all values
+            vs[value.name] = new_data.value
+
+            refine[field_name] = new_data;
+
         });
 
+        refine.form_values = vs;
 
         return refine;
     }
 
-    // set required fields in refine
+    // set required fields in order
     this.filter_fields = function (refined_fields, required) {
-        var structured = [];
+        var structured = {};
+        var vs = {};
         angular.forEach(required, function (value, key) {
-            var new_data = refined_fields[value];
-            structured.push(new_data);
+
+            if (typeof refined_fields[value] != 'undefined') {
+                var field = refined_fields[value];
+                structured[field.name] = field;
+                vs[field.name] = field.value;
+            }
+
+
         });
+        structured.form_values = vs;
         return structured;
     }
 
-
-
+    this.isTextLike = function (type) {
+        var fields = ["text", "password", "email", "number", "url"];
+        var result = fields.indexOf(type);
+        return (result < 0) ? false : true;
+    }
 
 });
 
@@ -229,10 +256,10 @@ app.directive("formCheckbox", function ($ionicModal) {
             scope.isChecked = function (value) {
 
                 if (scope.sec[scope.checkboxlist.name].indexOf(value) >= 0) {
-                    return 1;
+                    return true;
                 } else {
                     //not found
-                    return 0;
+                    return false;
                 }
 
             }
@@ -252,3 +279,22 @@ app.directive("formCheckbox", function ($ionicModal) {
 });
 
 
+app.directive("formlistItems", function ($ionicModal, FormGenerator) {
+
+    return {
+        restrict: 'E',
+        templateUrl: 'derectives/form/templates/derective-list-items.html',
+        scope: {
+            // the list of checkbox items
+            items: '=',
+        },
+        link: function (scope, element, attrs) {
+
+            scope.isTextLike = function (type) {
+                return FormGenerator.isTextLike(type);
+            }
+
+        }
+    }
+
+});

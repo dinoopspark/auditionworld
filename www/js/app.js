@@ -8,7 +8,7 @@ app.run(function ($ionicPlatform, $location) {
             cordova.plugins.Keyboard.disableScroll(true);
         }
         if (window.StatusBar) {
-            
+
             StatusBar.styleDefault();
         }
 
@@ -19,7 +19,9 @@ app.run(function ($ionicPlatform, $location) {
 
 
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+
+
 
     $stateProvider
             .state('app', {
@@ -58,6 +60,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: 'pages/auditions.html',
+                        controller: 'auditionCtrl',
                     }
                 }
             })
@@ -77,10 +80,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 views: {
                     'menuContent': {
                         templateUrl: 'pages/profile-edit.html',
-                        controller: 'profileCtrl',
+                        controller: 'profileEditCtrl',
                     }
                 }
             })
+
             .state('app.sample-form', {
                 url: '/sample-form',
                 cache: false,
@@ -88,6 +92,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                     'menuContent': {
                         templateUrl: 'pages/sample-form.html',
                         controller: 'sampleCtrl',
+                    }
+                }
+            })
+            .state('app.test-page', {
+                url: '/test-page',
+                cache: false,
+                views: {
+                    'menuContent': {
+                        templateUrl: 'pages/test-page.html',
+                        controller: 'testCtrl',
                     }
                 }
             });

@@ -6,13 +6,13 @@
         <div class="list card">
 
             <div class="item item-avatar">
-                <img src="img/avatar.png">
-                <h2>{{ profile.name }}</h2>
-                <p>Actor / Director</p>
+                <img src="{{ basic.profile_pic }}">
+                <h2>{{ basic.name }}</h2>
+                <p>{{ basic.phone }}</p>
             </div>
 
-            <div class="item item-body">
-                <p>{{ profile.about_me }}</p>
+            <div class="item item-body" ng-if="basic.about_me">
+                <p>{{ basic.about_me }}</p>
             </div>
 
             <a class="item item-icon-left assertive" href="#">
@@ -24,30 +24,12 @@
                 Edit my profile
             </a>
 
+
+            <formlist-items items="detailed"></formlist-items>
         </div>
 
-        <ul class="list ">
-            
-            <li class="item item-divider">Profile Details</li>
-            <li class="item" ng-repeat="pd in profile_details">
-                {{ pd.label }} <span class="profile-value-right">{{ pd.value }}</span>
-            </li>
-            
-            <li class="item item-divider">Physical Details</li>
-            <li class="item" ng-repeat="pd in physical_details">
-                {{ pd.label }} <span class="profile-value-right">{{ pd.value }}</span>
-            </li>
-            
-            <li class="item item-divider">Experience & Achievements</li>
-            <div ng-repeat="pd in experience_achievements">
-                
-                <div class="item item-body dark">
-                    <h3>{{ pd.label }}</h3>
-                    <p>{{ pd.value }}</p>
-                </div>
-            </div>
-            
-        </ul>
+        
+
 
     </ion-content>
 </ion-view>

@@ -8,7 +8,7 @@ $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
 if ($request->email == 'admin' && $request->password == 'admin123') {
-    echo '{"id":"274","log_count":"1","user":"user", "status": "valid"}';
+    echo '{"id":"10","log_count":"1","user":"user", "status": "valid"}';
 } else {
     echo '{"status": "invalid"}';
 }
