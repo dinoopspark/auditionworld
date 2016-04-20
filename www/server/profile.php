@@ -8,7 +8,6 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 $user = array(
     'id' => '20',
     'name' => 'John Doe',
-    
     'phone' => '+91 458 9658 96',
     'email' => 'john@mail.com',
     'dob' => '2005-05-25',

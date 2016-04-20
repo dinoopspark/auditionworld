@@ -10,7 +10,19 @@
                 {{ item.label}} <span class="profile-value-right">{{ item.value}}</span>
             </label>
         </span>
-
+        
+        <span ng-if="item.type == 'select'">
+            <label class="item">
+                {{ item.label}} <span class="profile-value-right">{{ item.value}}</span>
+            </label>
+        </span>
+        
+        <span ng-if="item.type == 'radio'">
+            <label class="item">
+                {{ item.label}} <span class="profile-value-right">{{ item.value}}</span>
+            </label>
+        </span>
+        
         <span ng-if="item.type == 'textarea'">
             <label class="item item-body dark">
                 <h3>{{ item.label}}</h3>

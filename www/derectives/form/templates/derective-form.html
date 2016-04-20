@@ -23,7 +23,7 @@
             <div class="input-label">
                 {{item.label}}
             </div>
-            <select name="{{item.name}}" ng-model="item.value">
+            <select name="{{item.name}}" ng-model="dec[item.name]">
                 <option ng-repeat="option in item.options" ng-selected="option.value == dec[item.name]" value="{{option.value}}">{{ option.label}}</option>
             </select>
         </label>

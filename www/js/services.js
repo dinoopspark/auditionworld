@@ -21,7 +21,7 @@ app.factory("LoginService", function (ModuleService, StoreService, WebService, $
         var postdata = {email: username, password: password};
 
         WebService.postData(url, postdata).success(function (response) {
-            
+
             var user = {user_id: response.id, login: true}
             StoreService.update_option('user_login', user);
             $state.go('app.home');
@@ -40,22 +40,22 @@ app.factory("LoginService", function (ModuleService, StoreService, WebService, $
     fact.signupUser = function (formdata) {
 
         var url = appData.url_signup;
-        
+
         delete formdata.confirm_password;
-        
-        WebService.postData(url, formdata).success(function (response) {            
+
+        WebService.postData(url, formdata).success(function (response) {
             var user = {user_id: response.id, login: true}
             StoreService.update_option('user_login', user);
             $state.go('app.home');
-            
+
         }).error(function (response) {
-            
+
             ModuleService.message({
                 title: 'Signup failed!',
                 defaultMsg: "Please re-submit the form",
                 response: response,
             });
-            
+
         });
 
     }
@@ -97,12 +97,12 @@ app.factory("LoginService", function (ModuleService, StoreService, WebService, $
             var form_field_value = response.user;
 
             var form_refine = FormGenerator.refine_field_attributes(form_fields, form_field_value);
-            
+
             // Basic view
             var profile_view_basic = appData.global.profile_view_basic;
             var rf_profile_view_basic = FormGenerator.filter_fields(form_refine, profile_view_basic);
             results.basic = rf_profile_view_basic.form_values;
-            
+
             results.basic.profile_pic = fact.profile_pic(form_refine.profile_pic.value, true);
 
 
@@ -112,12 +112,12 @@ app.factory("LoginService", function (ModuleService, StoreService, WebService, $
             callback(results);
         });
     }
-    
+
     fact.profile_pic = function (image_name, small) {
         if (image_name == '') {
             return appData.sample_profile_pic;
         }
-        
+
         if (small) {
             return appData.baseUrl + '/assets/profile/small_' + image_name;
         } else {
@@ -136,8 +136,10 @@ app.factory("LoginService", function (ModuleService, StoreService, WebService, $
 
             var form_fields = appData.global.user_profile;
             var form_field_value = response.user;
+            console.log(form_field_value);
             var form_refine = FormGenerator.refine_field_attributes(form_fields, form_field_value);
 
+            
             var required_fields = appData.global.profile_edit;
             results.user_refine = FormGenerator.filter_fields(form_refine, required_fields);
             results.user_refined_value = results.user_refine.form_values;
@@ -147,7 +149,7 @@ app.factory("LoginService", function (ModuleService, StoreService, WebService, $
     }
 
     return fact;
-    
+
 });
 
 

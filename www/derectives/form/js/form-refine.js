@@ -3,6 +3,7 @@ app.controller("sampleCtrl", function ($scope, FormGenerator) {
     var sample_fields = [
         {name: "information", type: "divider", label: "Information"},
         {name: "name", label: "Name"},
+        {name: "id", type: "url"},
         {name: "email", label: "Email", type: "email"},
         {name: "about", label: "About Me", type: "textarea"},
         {type: "divider", label: "Basic"},
@@ -29,14 +30,17 @@ app.controller("sampleCtrl", function ($scope, FormGenerator) {
         name: "Sam",
         about: "lorem ipsum",
         gender: "male",
+        id: "25",
     };
 
-    var required_fields = ['information', 'hobbies'];
+    var required_fields = ['id', 'information', 'hobbies'];
 
     $scope.sample_refine = FormGenerator.refine_field_attributes(sample_fields, $scope.sample_field_value);
+    
 
     $scope.sample_refine = FormGenerator.filter_fields($scope.sample_refine, required_fields);
     $scope.sample_refined_value = $scope.sample_refine.form_values;
+    console.log($scope.sample_refined_value);
 
 
 
@@ -61,10 +65,31 @@ app.controller("sampleCtrl", function ($scope, FormGenerator) {
 
 
 
-app.service("FormGenerator", function () {
+app.factory("FormGenerator", function () {
+
+    var fact = {};
+
+    fact.type_allow = [
+        "text",
+        "select",
+        "radio",
+        "checkbox",
+        "password",
+        "email",
+        "number",
+        "url",
+        "hidden",
+        "divider"
+    ];
+
+    fact.isTextLike = function (type) {
+        var fields = ["text", "password", "email", "number", "url", "hidden"];
+        var result = fields.indexOf(type);
+        return (result < 0) ? false : true;
+    }
 
     // refine field attributes
-    this.refine_field_attributes = function (fields, valueObj) {
+    fact.refine_field_attributes = function (fields, valueObj) {
 
         var refine = {};
 
@@ -73,16 +98,21 @@ app.service("FormGenerator", function () {
         angular.forEach(fields, function (value, key) {
 
             var type = (value.type) ? value.type : "text";
-            var field_value = (valueObj[value.name]) ? valueObj[value.name] : "";
-            var field_name = (value.name) ? value.name : "randname" + Math.floor((Math.random() * 100000) + 1);
 
+            var field_value = (valueObj[value.name]) ? valueObj[value.name] : "";
+            var field_label = (value.label) ? value.label : "";
+            var field_name = (value.name) ? value.name : "randname" + Math.floor((Math.random() * 100000) + 1);
 
             var new_data = {
                 name: field_name,
-                label: value.label,
+                label: field_label,
                 value: field_value,
                 type: type
             };
+
+            if (type == 'divider') {
+                delete new_data.value;
+            }
 
             if (type == 'select') {
 
@@ -122,20 +152,23 @@ app.service("FormGenerator", function () {
             }
 
 
-            // seperate all values
-            vs[value.name] = new_data.value
+            // value separated
+            if(typeof new_data.value != "undefined"){
+                vs[value.name] = new_data.value
+            }
+            
 
             refine[field_name] = new_data;
 
         });
 
         refine.form_values = vs;
-
+        
         return refine;
     }
 
     // set required fields in order
-    this.filter_fields = function (refined_fields, required) {
+    fact.filter_fields = function (refined_fields, required) {
         var structured = {};
         var vs = {};
         angular.forEach(required, function (value, key) {
@@ -143,7 +176,12 @@ app.service("FormGenerator", function () {
             if (typeof refined_fields[value] != 'undefined') {
                 var field = refined_fields[value];
                 structured[field.name] = field;
-                vs[field.name] = field.value;
+                
+                if(typeof refined_fields.form_values[value] != 'undefined'){
+                    vs[field.name] = field.value;
+                }
+                
+                
             }
 
 
@@ -152,11 +190,7 @@ app.service("FormGenerator", function () {
         return structured;
     }
 
-    this.isTextLike = function (type) {
-        var fields = ["text", "password", "email", "number", "url"];
-        var result = fields.indexOf(type);
-        return (result < 0) ? false : true;
-    }
+    return fact;
 
 });
 
@@ -175,7 +209,7 @@ app.directive("formRefine", function ($ionicModal) {
         link: function (scope, element, attrs) {
 
             scope.isTextLike = function (type) {
-                var fields = ["text", "password", "email", "number", "url"];
+                var fields = ["text", "password", "email", "number", "url", "hidden"];
                 var result = fields.indexOf(type);
                 return (result < 0) ? false : true;
             }

@@ -1,6 +1,7 @@
 var global = {
     // profile information
     user_profile: [
+        {name: "id", type: "hidden"},
         {name: "name", label: "Name"},
         {name: "profile_pic", label: "Profile picture"},
         {name: "about_me", label: "About me", type: "textarea"},
@@ -11,16 +12,17 @@ var global = {
         {
             name: "gender", label: "Gender", type: "select",
             options: [
-                {label: "Male", value: "male"},
-                {label: "Female", value: "female"},
+                {label: "Male", value: "Male"},
+                {label: "Female", value: "Female"},
             ],
-            option_default: "male"
+            option_default: "Male"
         },
-        {name: "language_known", label: "Language known"},
+        {name: "language", label: "Language known"},
         {name: "physical_details", type: "divider", label: "Physical Details"},
-        {name: "complexion", label: "Complexion"},
-        {name: "eye_color", label: "Eye color"},
-        {name: "height", label: "Height"},
+        {name: "color", label: "Complexion"},
+        {name: "eye", label: "Eye color"},
+        {name: "height_feet", label: "Height (feet)"},
+        {name: "height_inch", label: "Height (inches)"},
         {name: "weight", label: "Weight"},
         {name: "hair", label: "Hair style"},
         {name: "experience_achievement", type: "divider", label: "Experience & Achievement"},
@@ -40,10 +42,12 @@ var global = {
         'email',
         'dob',
         'gender',
-        'language_known',
+        'language',
         'physical_details',
-        'complexion',
-        'eye_color',
+        'color',
+        'eye',
+        'height_feet',
+        'height_inch',
         'height_feet',
         'weight',
         'hair',
@@ -53,17 +57,19 @@ var global = {
         'work_level',
     ],
     profile_edit: [
+        'id',
         'name',
         'about_me',
         'profile_details',
         'phone',
         'dob',
         'gender',
-        'language_known',
+        'language',
         'physical_details',
-        'complexion',
-        'eye_color',
-        'height',
+        'color',
+        'eye',
+        'height_feet',
+        'height_inch',
         'weight',
         'hair',
         'experience_achievement',
@@ -80,7 +86,7 @@ var appData = {
     url_login: 'app/authenticate',
     url_signup: 'app/register',
     url_profile: 'app/myprofile',
-    
+    url_profile_update: 'app/updateprofile',
 }
 
 var deactive_appData = {
@@ -90,7 +96,6 @@ var deactive_appData = {
     url_login: 'authenticate.php',
     url_signup: 'signup.php',
     url_profile: 'profile.php',
-    
     url_profile_update: 'profile-edit.php',
     url_audition: 'auditions.php',
 }
